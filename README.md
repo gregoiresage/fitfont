@@ -71,3 +71,7 @@ Import and use the library in your index.js :
 ```
 
 Launch your app and enjoy
+
+## Demo
+
+This github repo is a Fitbit project, simply build it and install it on your watch
