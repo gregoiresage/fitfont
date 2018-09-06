@@ -1,0 +1,15 @@
+.background {
+  viewport-fill: pink;
+}
+
+#dayLbl {
+  x: 50%;
+  y: 35%;
+  fill: green;
+}
+
+#hourLbl {
+  x: 50%;
+  y: 80%;
+  fill: green;
+}

@@ -1,0 +1,6 @@
+<svg class="background">
+    
+  <use href="#fitfont" id="dayLbl" />
+  <use href="#fitfont" id="hourLbl"/>
+  
+</svg>
