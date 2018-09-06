@@ -74,8 +74,8 @@ Import and use the library in your index.js :
     myLabel.letterspacing = -3
 ```
 
-Launch your app and enjoy
+Launch your app and enjoy.
 
 ## Demo
 
-This github repo is a Fitbit project, simply build it and install it on your watch
+This github repo is a Fitbit project, simply build it and install it on your watch.
