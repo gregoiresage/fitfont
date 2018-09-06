@@ -40,7 +40,7 @@ e.g.
   python generate.py my_cool_font.ttf 200 0123456789:.
 ```
 
-Copy the generated folder (nammed [font_name]_[font_size]) in your project's `resources` folder.
+Copy the generated folder (named [font_name]_[font_size]) in your project's `resources` folder.
 
 Repeat this for every font/size you need.
 
