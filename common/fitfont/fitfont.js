@@ -37,13 +37,13 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
         this.chars[i].href = ''
       }
       else {
-        this.chars[i].width = metrics[0]
-        this.chars[i].x = totalWidth + metrics[1]
-        if(i === val.length-1){
-          totalWidth += this.chars[i].width
-        }
-        else {
-          totalWidth += metrics[2] + this._spacing
+        this.chars[i].width  = metrics[0]
+        this.chars[i].height = metrics[1]
+        this.chars[i].x = totalWidth + metrics[2]
+        this.chars[i].y = metrics[3]
+        totalWidth += metrics[4]
+        if(i < val.length-1){
+          totalWidth += this._spacing
         }
         this.chars[i].href  = `${this.folder}/${val.charCodeAt(i)}.png`
       }

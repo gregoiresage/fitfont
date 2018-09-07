@@ -6,7 +6,7 @@ import { preferences } from 'user-settings'
 const DayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 
 // declaration of the FitFont objects
-const dayLbl  = new FitFont({ id:'dayLbl',  font:'Market_Saturday_80',  halign: 'middle', letterspacing: -5})
+const dayLbl  = new FitFont({ id:'dayLbl',  font:'Market_Saturday_80',  halign: 'middle'})
 const hourLbl = new FitFont({ id:'hourLbl', font:'Market_Saturday_200', halign: 'middle'})
 
 const updateClock = () => {

@@ -1,6 +1,9 @@
 <svg class="background">
     
+  <line x1="50%" x2="50%" y1="0%" y2="100%" fill="black" stroke-width="2" />
+  <line x1="0" x2="100%" y1="35%" y2="35%" fill="black" stroke-width="2" />
   <use href="#fitfont" id="dayLbl" />
+  <line x1="0" x2="100%" y1="80%" y2="80%" fill="black" stroke-width="2" />
   <use href="#fitfont" id="hourLbl"/>
   
 </svg>

@@ -14,5 +14,12 @@
         "name": "fitfont"
       }
     }
+  },
+  "dependencies": {
+    "@fitbit/sdk": "^1.0.2",
+    "@fitbit/sdk-cli": "^1.0.1"
+  },
+  "scripts": {
+    "build": "fitbit-build"
   }
 }
