@@ -22,8 +22,6 @@ def generate(file_font, font_size, chars):
     'metrics' : {}
   }
 
-  print str(ascent+descent)
-
   for c in chars:
     (width, height), (offset_x, offset_y) = font.font.getsize(c)
     
