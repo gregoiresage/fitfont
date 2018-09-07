@@ -3,9 +3,8 @@ import argparse
 import os
 import json
 from PIL import Image, ImageFont, ImageDraw
-
+  
 def generate(file_font, font_size, chars):
-
   font = ImageFont.truetype(file_font, font_size)
   (fontname, fontfamily) = font.getname()
 
@@ -20,17 +19,26 @@ def generate(file_font, font_size, chars):
   info = {
     'descent' : descent,
     'ascent'  : ascent,
-    'widths'  : {}
+    'metrics' : {}
   }
 
   for c in chars:
-    image_path = '%s/%d.png' % (outdir, ord(c))
-    width = font.getsize(c)[0]
-    image = Image.new("L", (width, ascent + descent), 0)
+    width         = font.getsize(c)[0]
+    offset_x      = font.getoffset(c)[0]
+    # hack to get the advance with of the character, the PIL library doesn't provide this value
+    # but width("cc") = advance("c") + width("c")
+    advance_width = font.getsize(c+c)[0] - width
+
+    # see http://www.rpmseattle.com/of_note/wp-content/uploads/2016/07/violin-clef-metrics.jpg
+    info['metrics'][c] = [
+      width,         # width
+      offset_x,      # left side bearing
+      advance_width] # advance width
+
+    image = Image.new("L", (width, ascent+descent), 0)
     draw  = ImageDraw.Draw(image)
-    draw.text((0,0),c,255,font=font)
-    info['widths'][c] = width
-    image.save(image_path)
+    draw.text((-offset_x,0),c,255,font=font)
+    image.save('%s/%d.png' % (outdir, ord(c)))
 
   with open('%s/fonts.json' % outdir, 'wb') as fp:
     json.dump(info, fp)
