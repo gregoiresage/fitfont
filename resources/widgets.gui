@@ -1,8 +1,0 @@
-<svg>
-  <defs>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="import" href="/mnt/sysassets/widgets_common.gui" />
-    <!-- import FitFont ui file -->
-    <link rel="import" href="fitfont/fitfont.gui" />
-  </defs>
-</svg>

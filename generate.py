@@ -4,11 +4,11 @@ import os
 import json
 from PIL import Image, ImageFont, ImageDraw
   
-def generate(file_font, font_size, chars):
+def generate(file_font, font_size, chars, destfolder):
   font = ImageFont.truetype(file_font, font_size)
   (fontname, fontfamily) = font.getname()
 
-  outdir = ('%s_%d' % (fontname, font_size)).replace(' ','_')
+  outdir = ('%s/%s_%d' % (destfolder, fontname, font_size)).replace(' ','_')
   try: 
     os.makedirs(outdir)
   except OSError:
@@ -46,12 +46,15 @@ def generate(file_font, font_size, chars):
   with open('%s/fonts.json' % outdir, 'w') as fp:
     json.dump(info, fp)
 
+  print('Files have been successfully generated in %s' % outdir)
+
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(description='Generate font package')
   parser.add_argument('font',  help='The ttf font file')
   parser.add_argument('size',  help='The font size', type=int)
   parser.add_argument('chars', help='List of characters to generate')
+  parser.add_argument("-d", "--dest", default='.')
 
   options = parser.parse_args()
 
-  generate(options.font, options.size, options.chars)
+  generate(options.font, options.size, options.chars, options.dest)

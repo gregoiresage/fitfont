@@ -1,25 +1,45 @@
 {
-  "fitbit": {
-    "appUUID": "7e56b558-1915-48fe-b53c-bc502bb142b6",
-    "appType": "clockface",
-    "appDisplayName": "fitfont",
-    "iconFile": "resources/icon.png",
-    "wipeColor": "#e91e63",
-    "requestedPermissions": [],
-    "buildTargets": [
-      "meson"
-    ],
-    "i18n": {
-      "en": {
-        "name": "fitfont"
-      }
-    }
-  },
-  "dependencies": {
-    "@fitbit/sdk": "^1.0.2",
-    "@fitbit/sdk-cli": "^1.0.1"
-  },
   "scripts": {
-    "build": "fitbit-build"
+    "postinstall": "node ./bin/install.js",
+    "build": "babel source --out-dir .",
+    "prepublish": "npm run build"
+  },
+  "babel": {
+    "presets": [
+      [
+        "es2015",
+        {
+          "modules": false
+        }
+      ]
+    ]
+  },
+  "bin": {
+    "fitfont-generate": "./bin/generate.js"
+  },
+  "name": "fitfont",
+  "description": "This library allows you to easily display text with custom fonts.",
+  "version": "1.2.0",
+  "main": "fitfont.js",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregoiresage/fitfont.git"
+  },
+  "keywords": [
+    "fitbitdev"
+  ],
+  "author": "Grégoire Sage",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gregoiresage/fitfont/issues"
+  },
+  "homepage": "https://github.com/gregoiresage/fitfont#readme",
+  "dependencies": {
+    "python-shell": "^1.0.4",
+    "readline2": "^1.0.1"
   }
 }

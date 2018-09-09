@@ -5,34 +5,33 @@ let fonts = {}
 
 export function FitFont({ id, font, halign, valign, letterspacing }) {
   
-  this.folder     = font
   this.root       = document.getElementById(id)
-  this.container  = this.root.getElementById('c94f75cf')       // this id should not interfer with user's ones
-  this.chars      = this.root.getElementsByClassName('083037') // this classname should not interfer with user's ones
+  this.chars      = this.root.getElementsByClassName('fitfont-char')
   this._halign    = halign || 'start'
   this._valign    = valign || 'baseline'
   this._spacing   = letterspacing || 0
   
   if(fonts[font] === undefined) {
     try {
-      fonts[font] = readFileSync(`/mnt/assets/resources/${this.folder}/fonts.json`, 'json')
+      fonts[font] = readFileSync(`/mnt/assets/resources/${font}/fonts.json`, 'json')
     } catch (e) {
-      console.log(`Font ${this.folder} not found`)
+      console.error(`Font ${font} not found`)
       return
     }
   }
   this.info = fonts[font] 
-  
-  this.container.height = this.info.ascent + this.info.descent
-  
+
   this.redraw = () => {
     let totalWidth = 0
     let i = 0
     const val=this._text
-    for(i=0; i<val.length; i++) {
+    if(val.length > this.chars.length) {
+      console.warn(`New element text larger than the number of characters of ${id}`)
+    }
+    while(i<val.length && i<this.chars.length) {
       const metrics = this.info.metrics[val[i]]
       if(metrics === undefined) {
-        console.log(`Char not found ${val[i]} in ${this.folder}`)
+        console.error(`Char not found ${val[i]} in ${font}`)
         this.chars[i].width = 0
         this.chars[i].href = ''
       }
@@ -45,27 +44,36 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
         if(i < val.length-1){
           totalWidth += this._spacing
         }
-        this.chars[i].href  = `${this.folder}/${val.charCodeAt(i)}.png`
+        this.chars[i].href  = `${font}/${val.charCodeAt(i)}.png`
       }
+      i++
     }
     for(; i<this.chars.length; i++){
       this.chars[i].href  = ''
+
       this.chars[i].width = 0
     }
-    this.container.width = totalWidth
+    
+    let offx = 0
+    let offy = 0
     switch(this._halign) {
-      case 'middle': this.container.x = -totalWidth/2; break
-      case 'end'   : this.container.x = -totalWidth; break
+      case 'middle': offx -= totalWidth/2; break
+      case 'end'   : offx -= totalWidth; break
       case 'start' :
-      default :      this.container.x = 0; break
+      default :      offx = 0; break
     }
     switch(this._valign) {
-      case 'top' :    this.container.y = 0; break
-      case 'middle' : this.container.y = -this.container.height/2; break
-      case 'bottom' : this.container.y = -this.container.height; break
+      case 'top' :    offy = 0; break
+      case 'middle' : offy -= (this.info.ascent + this.info.descent)/2; break
+      case 'bottom' : offy -= this.info.ascent + this.info.descent; break
       case 'baseline' :
-      default :       this.container.y = -this.info.ascent; break
+      default :       offy -= this.info.ascent; break
     }
+
+    this.chars.forEach(element => {
+      element.x += offx
+      element.y += offy
+    })
   }
   
   Object.defineProperty(this, 'text', {
