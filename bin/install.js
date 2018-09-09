@@ -10,14 +10,11 @@ rl.question('Copy gui files in your resources folder? (Y/n)', (answer) => {
 
     const fs  = require('fs')
 
-    if (!fs.existsSync(projectDir + '/resources/fitfont/')){
-      if (!fs.existsSync(projectDir + '/resources/')){
-        fs.mkdirSync(projectDir + '/resources/')
-      }
-      fs.mkdirSync(projectDir + '/resources/fitfont/')
+    if (!fs.existsSync(projectDir + '/resources/')){
+      fs.mkdirSync(projectDir + '/resources/')
     }
     
-    fs.createReadStream(__dirname + '/../fitfont.gui').pipe(fs.createWriteStream(projectDir + '/resources/fitfont/fitfont.gui'))
+    fs.createReadStream(__dirname + '/../fitfont.gui').pipe(fs.createWriteStream(projectDir + '/resources/fitfont.gui'))
     
     console.log("Files copied!")
   }
