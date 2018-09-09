@@ -122,3 +122,7 @@ Import and use the library in your `app/index.js`:
 ```
 
 Launch your app and enjoy.
+
+# Demo
+
+A demo is available [here](https://github.com/gregoiresage/fitfont-demo)
