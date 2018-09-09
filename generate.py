@@ -37,10 +37,11 @@ def generate(file_font, font_size, chars):
       offset_y,      # bearing y
       advance_width] # advance width
 
-    image = Image.new("L", (width, height), 0)
-    draw  = ImageDraw.Draw(image)
-    draw.text((-offset_x,-offset_y),c,255,font=font)
-    image.save('%s/%d.png' % (outdir, ord(c)))
+    if width != 0 and height != 0 :
+      image = Image.new("L", (width, height), 0)
+      draw  = ImageDraw.Draw(image)
+      draw.text((-offset_x,-offset_y),c,255,font=font)
+      image.save('%s/%d.png' % (outdir, ord(c)))
 
   with open('%s/fonts.json' % outdir, 'w') as fp:
     json.dump(info, fp)
