@@ -42,11 +42,11 @@ def generate(file_font, font_size, chars):
     draw.text((-offset_x,-offset_y),c,255,font=font)
     image.save('%s/%d.png' % (outdir, ord(c)))
 
-  with open('%s/fonts.json' % outdir, 'wb') as fp:
+  with open('%s/fonts.json' % outdir, 'w') as fp:
     json.dump(info, fp)
 
 if __name__ == "__main__":
-  parser = argparse.ArgumentParser(version='1.0',description='Generate font package')
+  parser = argparse.ArgumentParser(description='Generate font package')
   parser.add_argument('font',  help='The ttf font file')
   parser.add_argument('size',  help='The font size', type=int)
   parser.add_argument('chars', help='List of characters to generate')
