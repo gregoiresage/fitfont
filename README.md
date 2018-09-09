@@ -12,9 +12,9 @@ This library allows you to easily display text with custom fonts.
 
 Install the library with `npm i fitfont`
 
-  The installer will ask you if it can copy the library gui files in your `resources` folder:
-  Press `Y` and the `fitfont.gui` file will be created automatically.
-  Press `N` if you prefer to copy the file manually afterwards (default choice is Yes)
+   The installer will ask you if it can copy the library gui files in your `resources` folder:  
+   Press `Y` and the `fitfont.gui` file will be created automatically.  
+   Press `N` if you prefer to copy the file manually afterwards (default choice is Yes)  
   
 You still need to modify the `resources/widgets.gui` file to add the link to `fitfont.gui`:
 ``` xml
