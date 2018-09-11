@@ -10,6 +10,7 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
   this._halign    = halign || 'start'
   this._valign    = valign || 'baseline'
   this._spacing   = letterspacing || 0
+  this._text      = ''
   
   if(fonts[font] === undefined) {
     try {
