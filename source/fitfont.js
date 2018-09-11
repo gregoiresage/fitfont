@@ -79,41 +79,49 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
   
   Object.defineProperty(this, 'text', {
     get : () => {
-        return this._text
+      return this._text
     },
     set : (val) => {
-        this._text = val
-        this.redraw()
+      if(this._text === val) 
+        return
+      this._text = val
+      this.redraw()
     }
   })
   
   Object.defineProperty(this, 'halign', {
     get : () => {
-        return this._halign
+      return this._halign
     },
     set : (val) => {
-        this._halign = val
-        this.redraw()
+      if(this._halign === val) 
+        return
+      this._halign = val
+      this.redraw()
     }
   })
   
   Object.defineProperty(this, 'valign', {
     get : () => {
-        return this._valign
+      return this._valign
     },
     set : (val) => {
-        this._valign = val
-        this.redraw()
+      if(this._valign === val) 
+        return
+      this._valign = val
+      this.redraw()
     }
   })
   
   Object.defineProperty(this, 'letterspacing', {
     get : () => {
-        return this._spacing
+      return this._spacing
     },
     set : (val) => {
-        this._spacing = val
-        this.redraw()
+      if(this._spacing === val) 
+        return
+      this._spacing = val
+      this.redraw()
     }
   })
 }
