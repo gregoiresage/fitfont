@@ -88,12 +88,12 @@ Repeat this for every font/size you need.
 Use a `fitfont` symbol in your `index.gui` file:
 ``` xml
     <use href="#fitfont" id="myLabel">
-        <use href="#fitfont-character"/>
-        <use href="#fitfont-character"/>
-        <use href="#fitfont-character"/>
-        <use href="#fitfont-character"/>
-        <use href="#fitfont-character"/>
-        <use href="#fitfont-character"/>
+        <use href="#fitfont-char"/>
+        <use href="#fitfont-char"/>
+        <use href="#fitfont-char"/>
+        <use href="#fitfont-char"/>
+        <use href="#fitfont-char"/>
+        <use href="#fitfont-char"/>
         <!-- add as many characters as needed -->
     </use>
 ```
