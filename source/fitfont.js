@@ -5,7 +5,7 @@ let fonts = {}
 
 export function FitFont({ id, font, halign, valign, letterspacing }) {
   
-  this.root       = document.getElementById(id)
+  this.root       = typeof id === 'string' ? document.getElementById(id) : id
   this.chars      = this.root.getElementsByClassName('fitfont-char')
   this._halign    = halign || 'start'
   this._valign    = valign || 'baseline'
@@ -25,7 +25,7 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
   this.redraw = () => {
     let totalWidth = 0
     let i = 0
-    const val=this._text
+    const val=this._text+''
     if(val.length > this.chars.length) {
       console.warn(`New element text larger than the number of characters of ${id}`)
     }

@@ -104,14 +104,14 @@ Import and use the library in your `app/index.js`:
     // or if you are not using the CLI : import { FitFont } from './fitfont.js'
     
     const myLabel = new FitFont({ 
-        id:'myLabel',               // id of your symbol in the index.gui
+        id:'myLabel',               // id of your symbol in the index.gui, you can also give an element object e.g. id: document.getElementById('foo')
         font:'Market_Saturday_200'  // name of the generated font folder
 
         // Optional
         halign: 'start',            // horizontal alignment : start / middle / end
         valign: 'baseline',         // vertical alignment   : baseline / top / middle / bottom
         letterspacing: 0            // letterspacing...
-        })
+    })
     
     myLabel.text = '12:55'          // only the characters generated with the python script will be displayed
 
