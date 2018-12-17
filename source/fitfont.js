@@ -11,7 +11,8 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
   this._valign    = valign || 'baseline'
   this._spacing   = letterspacing || 0
   this._text      = ''
-  
+  this._width     = 0
+
   if(fonts[font] === undefined) {
     try {
       fonts[font] = readFileSync(`/mnt/assets/resources/${font}/fonts.json`, 'json')
@@ -54,6 +55,8 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
 
       this.chars[i].width = 0
     }
+
+    this._width = totalWidth
     
     let offx = 0
     let offy = 0
@@ -122,6 +125,12 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
         return
       this._spacing = val
       this.redraw()
+    }
+  })
+
+  Object.defineProperty(this, 'width', {
+    get : () => {
+      return this._width
     }
   })
 }
