@@ -1,8 +1,10 @@
 #!/usr/bin/env python
+# coding: utf8
 import argparse
 import os
 import json
 from PIL import Image, ImageFont, ImageDraw
+from struct import pack
   
 def generate(file_font, font_size, chars, destfolder):
   font = ImageFont.truetype(file_font, font_size)
@@ -15,27 +17,26 @@ def generate(file_font, font_size, chars, destfolder):
     if not os.path.isdir(outdir):
       raise
 
+  ffile = open('%s/ff' % outdir,'wb')
+
   (ascent, descent) = font.getmetrics()
-  info = {
-    'descent' : descent,
-    'ascent'  : ascent,
-    'metrics' : {}
-  }
+  ffile.write(pack(">BBB", 1, descent, ascent))
+
+  chars = list(set(chars.decode('utf8')))
+  chars.sort()
+
+  for c in chars:
+    ffile.write(pack(">H", ord(c)))
 
   for c in chars:
     (width, height), (offset_x, offset_y) = font.font.getsize(c)
-    
+
     # hack to get the advance with of the character, the PIL library doesn't provide this value
     # but width("cc") = advance("c") + width("c")
     advance_width = font.getsize(c+c)[0] - font.getsize(c)[0]
 
-    # see http://www.rpmseattle.com/of_note/wp-content/uploads/2016/07/violin-clef-metrics.jpg
-    info['metrics'][c] = [
-      width,         # width
-      height,        # height
-      offset_x,      # bearing x
-      offset_y,      # bearing y
-      advance_width] # advance width
+    # # see http://www.rpmseattle.com/of_note/wp-content/uploads/2016/07/violin-clef-metrics.jpg
+    ffile.write(pack(">BBBBB", width, height, -offset_x, offset_y, advance_width))
 
     if width != 0 and height != 0 :
       image = Image.new("L", (width, height), 0)
@@ -43,8 +44,7 @@ def generate(file_font, font_size, chars, destfolder):
       draw.text((-offset_x,-offset_y),c,255,font=font)
       image.save('%s/%d.png' % (outdir, ord(c)))
 
-  with open('%s/fonts.json' % outdir, 'w') as fp:
-    json.dump(info, fp)
+  ffile.close()
 
   print('Files have been successfully generated in %s' % outdir)
 
