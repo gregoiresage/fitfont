@@ -97,7 +97,7 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
       let index = getCharIndex(this._info, charCode)
       const charElem = this.chars[i]
       if (index === -1) {
-        // Char not fount in the font
+        // Char not found in the font
         // console.error(`Char not found ${val[i]} in ${font}`)
         charElem.href = ''
       }
@@ -106,6 +106,7 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
         charElem.height = this._info[index++]
         charElem.x      = totalWidth - this._info[index++]
         charElem.y      = this._info[index++]
+        if (charElem.y > 128) charElem.y -= 256
         totalWidth     += this._info[index++]
         charElem.href   = font + '/' + charCode + '.png'
       }
