@@ -197,4 +197,30 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
       return this._width
     }
   })
+  
+  Object.defineProperty(this, 'x', {
+    get : () => {
+      return this.root.x
+    },
+    set : (val) => {
+      if(this.root.x === val) 
+        return
+      this.root.x = val
+      this.redraw()
+    }
+  })
+
+  Object.defineProperty(this, 'y', {
+    get : () => {
+      return this.root.y
+    },
+    set : (val) => {
+      if(this.root.y === val) 
+        return
+      this.root.y = val
+      this.redraw()
+    }
+  })
+
+  
 }
