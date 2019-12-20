@@ -48,6 +48,7 @@ const getCharIndex = (info, c) => {
 export function FitFont({ id, font, halign, valign, letterspacing }) {
   
   this.root       = typeof id === 'string' ? document.getElementById(id) : id
+  this.style      = this.root.style
   this.chars      = this.root.getElementsByClassName('fitfont-char')
 
   this._halign    = halign || 'start'
