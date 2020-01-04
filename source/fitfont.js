@@ -1,7 +1,5 @@
 import document from 'document'
-import { readFileSync } from 'fs'
-import { memory } from 'system';
-import * as fs from 'fs';
+import { statSync, openSync, readSync, closeSync } from 'fs'
 
 let fonts = {}
 
@@ -24,14 +22,17 @@ const getCharIndex = (info, c) => {
   let max = count - 1
 
   // Check if the character is in the list
-  if (((info[BYTES_PER_CHAR*min] << 8) + info[BYTES_PER_CHAR*min+1]) > c || ((info[BYTES_PER_CHAR*max] << 8) + info[BYTES_PER_CHAR*max+1]) < c) {
+  const charMinOffset = INDEX_CHARS + BYTES_PER_CHAR * min
+  const charMaxOffset = INDEX_CHARS + BYTES_PER_CHAR * max
+  if (((info[charMinOffset] << 8) + info[charMinOffset + 1]) > c || ((info[charMaxOffset] << 8) + info[charMaxOffset + 1]) < c) {
     return -1
   }
 
   // use dichotomic search
   while (min <= max) {
     const id = Math.round((max + min) / 2)
-    let val = (info[BYTES_PER_CHAR*id] << 8) + info[BYTES_PER_CHAR*id+1]
+    const charOffset = INDEX_CHARS + BYTES_PER_CHAR*id
+    let val = (info[charOffset] << 8) + info[charOffset + 1]
 
     if (val === c) {
       return INDEX_CHARS + INFO_PER_CHAR * id + BYTES_PER_CHAR * count
@@ -63,12 +64,12 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
   if(fonts[font] === undefined) {
     try {
       const fName = '/mnt/assets/resources/' + font + '/ff'
-      let stats = fs.statSync(fName)
-      let file = fs.openSync(fName, 'r')
+      let stats = statSync(fName)
+      let file = openSync(fName, 'r')
 
       const buffer = new ArrayBuffer(stats.size)
-      fs.readSync(file, buffer, 0, stats.size, 0)
-      fs.closeSync(file)
+      readSync(file, buffer, 0, stats.size, 0)
+      closeSync(file)
 
       let bytes = new Uint8Array(buffer)
 
