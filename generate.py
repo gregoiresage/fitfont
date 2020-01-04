@@ -22,7 +22,7 @@ def generate(file_font, font_size, chars, destfolder):
   (ascent, descent) = font.getmetrics()
   ffile.write(pack(">BBB", 1, descent, ascent))
 
-  chars = list(set(chars.decode('utf8')))
+  chars = list(set(chars))
   chars.sort()
 
   for c in chars:
@@ -52,7 +52,7 @@ if __name__ == "__main__":
   parser = argparse.ArgumentParser(description='Generate font package')
   parser.add_argument('font',  help='The ttf font file')
   parser.add_argument('size',  help='The font size', type=int)
-  parser.add_argument('chars', help='List of characters to generate')
+  parser.add_argument('chars', help='List of characters to generate', type=lambda s: unicode(s, 'utf8'))
   parser.add_argument("-d", "--dest", default='.')
 
   options = parser.parse_args()
