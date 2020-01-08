@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf8
 import argparse
+import sys
 import os
 import json
 from PIL import Image, ImageFont, ImageDraw
@@ -52,7 +53,7 @@ if __name__ == "__main__":
   parser = argparse.ArgumentParser(description='Generate font package')
   parser.add_argument('font',  help='The ttf font file')
   parser.add_argument('size',  help='The font size', type=int)
-  parser.add_argument('chars', help='List of characters to generate', type=lambda s: unicode(s, 'utf8'))
+  parser.add_argument('chars', help='List of characters to generate', type=lambda s: s if sys.version_info[0] >= 3 else unicode(s, 'utf8'))
   parser.add_argument("-d", "--dest", default='.')
 
   options = parser.parse_args()
