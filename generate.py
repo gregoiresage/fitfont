@@ -6,10 +6,12 @@ import os
 import json
 from PIL import Image, ImageFont, ImageDraw
 from struct import pack
-  
+import re
+
 def generate(file_font, font_size, chars, destfolder):
   font = ImageFont.truetype(file_font, font_size)
-  (fontname, fontfamily) = font.getname()
+  (fontname, _) = font.getname()
+  fontname = re.sub("[^0-9a-zA-Z]+", "_", fontname)
 
   outdir = ('%s/%s_%d' % (destfolder, fontname, font_size)).replace(' ','_')
   try: 
@@ -37,7 +39,7 @@ def generate(file_font, font_size, chars, destfolder):
     advance_width = font.getsize(c+c)[0] - font.getsize(c)[0]
 
     # # see http://www.rpmseattle.com/of_note/wp-content/uploads/2016/07/violin-clef-metrics.jpg
-    ffile.write(pack(">BBBBB", width, height, -offset_x, offset_y, advance_width))
+    ffile.write(pack(">BBBBB", width, height, -offset_x, (offset_y + 256) % 256, advance_width))
 
     if width != 0 and height != 0 :
       image = Image.new("L", (width, height), 0)
