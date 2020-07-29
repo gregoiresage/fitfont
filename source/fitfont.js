@@ -108,7 +108,7 @@ export function FitFont({ id, font, halign, valign, letterspacing }) {
         charElem.height = this._info[index++]
         charElem.x      = totalWidth - this._info[index++]
         charElem.y      = this._info[index++]
-        if (charElem.y > 128) charElem.y -= 256
+        if (charElem.y > 200) charElem.y -= 256
         totalWidth     += this._info[index++]
         charElem.href   = font + '/' + charCode + '.png'
       }
