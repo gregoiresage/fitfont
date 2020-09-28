@@ -105,7 +105,7 @@ Import and use the library in your `app/index.js`:
     
     const myLabel = new FitFont({ 
         id:'myLabel',               // id of your symbol in the index.gui, you can also give an element object e.g. id: document.getElementById('foo')
-        font:'Market_Saturday_200'  // name of the generated font folder
+        font:'Market_Saturday_200', // name of the generated font folder
 
         // Optional
         halign: 'start',            // horizontal alignment : start / middle / end
