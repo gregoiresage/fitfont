@@ -2,6 +2,8 @@
 
 This library allows you to easily display text with custom fonts.
 
+**__This library is used in our FitFace.xyz clockfaces online editor [TRY IT NOW](https://fitface.xyz/)__**
+
 [![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.me/gsage/)
 
 ![alt text](screenshot.png "Sorry for the colors")
