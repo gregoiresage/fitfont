@@ -30,6 +30,10 @@ You still need to modify the `resources/widgets.gui` file to add the link to `fi
 
 ### Assets generation
 
+Install [Python](https://wiki.python.org/moin/BeginnersGuide/Download)
+
+Install [Pillow](https://pillow.readthedocs.io/en/stable/installation.html)
+
 Download your favourite ttf font and generate the library needed files with:
 ```
   npx fitfont-generate [path/to_the_font_file]  [font_size]  [list_of_characters_to_generate]
@@ -65,10 +69,9 @@ Modify the `resources/widgets.gui` file to add the link to `fitfont.gui`:
 
 ### Assets generation
 
-Install the python dependencies:
-```
-  pip install Pillow
-```
+Install [Python](https://wiki.python.org/moin/BeginnersGuide/Download)
+
+Install [Pillow](https://pillow.readthedocs.io/en/stable/installation.html)
 
 Download your favourite font file and call the python `generator.py` script of this repo.
 ```
