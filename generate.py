@@ -8,12 +8,15 @@ from PIL import Image, ImageFont, ImageDraw
 from struct import pack
 import re
 
-def generate(file_font, font_size, chars, destfolder):
+def generate(file_font, font_size, chars, stroke_width, destfolder):
   font = ImageFont.truetype(file_font, font_size)
   (fontname, _) = font.getname()
   fontname = re.sub("[^0-9a-zA-Z]+", "_", fontname)
 
-  outdir = ('%s/%s_%d' % (destfolder, fontname, font_size)).replace(' ','_')
+  if stroke_width != 0 :
+    outdir = ('%s/%s_%d_%d' % (destfolder, fontname, font_size, stroke_width)).replace(' ','_')
+  else :
+    outdir = ('%s/%s_%d' % (destfolder, fontname, font_size)).replace(' ','_')
   try: 
     os.makedirs(outdir)
   except OSError:
@@ -34,17 +37,23 @@ def generate(file_font, font_size, chars, destfolder):
   for c in chars:
     (width, height), (offset_x, offset_y) = font.font.getsize(c)
 
+    width += 2 * stroke_width
+    height += 2 * stroke_width
+
     # hack to get the advance with of the character, the PIL library doesn't provide this value
     # but width("cc") = advance("c") + width("c")
     advance_width = font.getsize(c+c)[0] - font.getsize(c)[0]
 
     # # see http://www.rpmseattle.com/of_note/wp-content/uploads/2016/07/violin-clef-metrics.jpg
-    ffile.write(pack(">BBBBB", width, height, -offset_x, (offset_y + 256) % 256, advance_width))
+    ffile.write(pack(">BBBBB", width, height, -offset_x+stroke_width, (offset_y - stroke_width + 256) % 256, advance_width))
 
     if width != 0 and height != 0 :
       image = Image.new("L", (width, height), 0)
       draw  = ImageDraw.Draw(image)
-      draw.text((-offset_x,-offset_y),c,255,font=font)
+      if stroke_width != 0 :
+        draw.text((-offset_x,-offset_y),c,fill='black',font=font,stroke_fill='white',stroke_width=stroke_width)
+      else :
+        draw.text((-offset_x,-offset_y),c,fill='white',font=font)
       image.save('%s/%d.png' % (outdir, ord(c)))
 
   ffile.close()
@@ -56,8 +65,9 @@ if __name__ == "__main__":
   parser.add_argument('font',  help='The ttf font file')
   parser.add_argument('size',  help='The font size', type=int)
   parser.add_argument('chars', help='List of characters to generate', type=lambda s: s if sys.version_info[0] >= 3 else unicode(s, 'utf8'))
+  parser.add_argument("-o", "--outline-width", help='Generate outlined font with the given stroke width', type=int, default=0)
   parser.add_argument("-d", "--dest", default='.')
 
   options = parser.parse_args()
 
-  generate(options.font, options.size, options.chars, options.dest)
+  generate(options.font, options.size, options.chars, options.outline_width, options.dest)
