@@ -133,8 +133,8 @@ Launch your app and enjoy.
 A demo is available [here](https://github.com/gregoiresage/fitfont-demo)
 
 ## TypeScript
-Developer who are using TypeScript could include type definitions from [fitfont-types](https://github.com/JeremyJeanson/fitfont-types).
+Developer who are using TypeScript could include type definitions from [@types/fitfont](https://www.npmjs.com/package/@types/fitfont) or [fitfont-types](https://github.com/JeremyJeanson/fitfont-types).
 
 ```javascript
-npm i fitfont-types
+npm i @types/fitfont
 ```
